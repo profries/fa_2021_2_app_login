@@ -19,3 +19,4 @@ const Route = use('Route')
 //Route.on('/').render('welcome')
 Route.get('/', 'LoginController.index');
 Route.post('/login', 'LoginController.login');
+Route.get('/bemvindo', 'LoginController.bemVindo');

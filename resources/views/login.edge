@@ -8,12 +8,27 @@
 </head>
 <body>
     <h1>Login</h1>
-    <h3> {{user}}</h3>
     <form action='/login' method="POST">
         {{ csrfField() }}
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <br />
+        <br />
+
+        <label for="senha">Senha:</label>
+        <input type="text" id="senha" name="senha">        
+        <br />
+        <br />
+
         <button type="submit">
             <span>Salvar</span>
         </button>
+
+        @if(old('notificacao'))
+        <p style="color:red">
+            {{old('notificacao')}}
+        </p>
+        @endif
     </form>
 </body>
 </html>
