@@ -14,7 +14,16 @@ class ProdutoController {
         return view.render('produtos.formulario');
     }
 
-    async 
+    async salvar ({request, response}) {
+        const produto = new Produto();
+        produto.nome = request.input('nome');
+        produto.preco = request.input('preco');
+        produto.categoria = request.input('categoria');
+
+        await produto.save();
+
+        return response.redirect('/produtos');
+    }
 }
 
 module.exports = ProdutoController;

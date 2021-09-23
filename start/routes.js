@@ -20,3 +20,8 @@ const Route = use('Route')
 Route.get('/', 'LoginController.index');
 Route.post('/login', 'LoginController.login');
 Route.get('/bemvindo', 'LoginController.bemVindo');
+
+//Rotas para o CRUD de Produtos
+Route.get('/produtos', 'ProdutoController.index')
+Route.get('/produtos/novo', 'ProdutoController.criar')
+Route.post('/produtos/salvar', 'ProdutoController.salvar')
