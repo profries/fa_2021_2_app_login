@@ -3,19 +3,24 @@
 const Usuario = use('App/Models/Usuario')
 
 class LoginController {
-    async index({view}) {
-        return view.render('login');
+    async index({view, response, session}) {
+        if(session.get('nome')) 
+            return response.redirect('/bemvindo');           
+        else
+            return view.render('login');
     }
 
     async login({request, response, session}) {
-        const usuario = new Usuario();
-        usuario.email = request.input('email');
-        usuario.senha = request.input('senha');
-        usuario.nome = "Administrador";
+        const email = request.input('email');
+        const senha = request.input('senha');
+        
+        const usuario = await Usuario.findBy("email", email);
 
-        if(usuario.email == "admin@admin.com" && usuario.senha == "12345") {
+        if(usuario && usuario.senha == senha) {
              console.log("Logado com sucesso!");
-             session.put('nome', usuario.nome);
+             const usuarioJSON = usuario.toJSON();            
+             delete usuarioJSON.senha;
+             session.put('usuario', usuarioJSON);
              return response.redirect('/bemvindo');           
         }
         else {
@@ -27,10 +32,17 @@ class LoginController {
         }        
     }
 
+    async logout({session,response}){
+        session.clear();
+        return response.redirect('/');
+    }
+
     async bemVindo({view, session, response}) {
-        const nome = session.get('nome');
-        if(nome) { 
-            return view.render('bemvindo', {nome: nome});
+        const usuario = session.get('usuario');
+        console.log("Usuario");
+        console.log(usuario);
+        if(usuario) { 
+            return view.render('bemvindo', {usuario: usuario});
         }
         else {
             response.redirect('/');

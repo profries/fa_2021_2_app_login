@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tabela de Produtos</title>
-</head>
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
-<body>
+@layout('template')
+
+
+@section('view')
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+    
     <h1>Tabela de Produtos</h1>
     <a href="http://localhost:3333/produtos/novo">Novo</a>
     @if(produtos && produtos.length > 0)
@@ -44,5 +40,4 @@
     @else
         <h2>Não há produtos cadastrados!</h2>
     @endif
-</body>
-</html>
+@endsection
